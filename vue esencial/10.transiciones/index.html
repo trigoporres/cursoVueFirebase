@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Vue Js</title>
+
+  <style>
+    li{
+      cursor: pointer;
+    }
+
+    .completado{
+      text-decoration: line-through;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Tareas</h1>
+
+    <!-- asocia propiedad computada para mostrar tareas completadas -->
+    <h3>{{ tareasCompletadas.length }} tareas completadas</h3>
+
+    <ul>
+      <!-- :class asocia la clase css con el modelo, y cunado ese valor es true añade esa clase -->
+      <li
+        :class='{completado: tarea.completado}'
+        @click='completarTarea(tarea)'
+        v-for='tarea in tareas'>
+          {{ tarea.titulo }}
+      </li>
+    </ul>
+
+    <pre>{{ $data }}</pre>
+  </main>
+
+  <script src="https://unpkg.com/vue@2.5.13/dist/vue.js" charset="utf-8"></script>
+  <script src="main.js" charset="utf-8"></script>
+</body>
+</html>
