@@ -7,8 +7,28 @@
   <title>Vue Js</title>
 </head>
 <body>
+  <main>
 
-  
+    <!-- v-show añade propiedad display none al elemento, recomendable para elementos que se estaran quitando y poniendo muchas veces -->
+    <!-- <h1 v-show="conectado">Estoy conectado</h1> -->
+
+    <!-- elimina el elemento del DOM, gasta mas recursos no es recomendable si se va a estar quitando y muchas veces-->
+    <h1 v-if="conectado">Estoy conectado</h1>
+
+    <h2 v-if="edad < 18">No puedes entrar</h2>
+
+    <h2 v-else-if="edad > 200">Eres inmortal</h2>
+
+    <h2 v-else>puedes entrar</h2>
+
+    <!-- template nos ayuda a poder renderizar un bloque entero sin ncesidad de repetir v-if en cada elemento, template no aparecera en nuestro DOM, solo sirve para renderizar. -->
+    <template v-if="conectado">
+      <h3>Bienvenido Santi</h3>
+    </template>
+
+    <pre>{{ $data }}</pre>
+  </main>
+
   <script src="https://unpkg.com/vue@2.5.13/dist/vue.js" charset="utf-8"></script>
   <script src="main.js" charset="utf-8"></script>
 </body>
