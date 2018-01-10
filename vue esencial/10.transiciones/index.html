@@ -1,37 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Vue Js</title>
+  <link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css">
+  <style media="screen">
+    /* transition */
 
-  <style>
-    li{
-      cursor: pointer;
+    .aparecer-enter {
+      opacity: 0;
     }
 
-    .completado{
-      text-decoration: line-through;
+    .aparecer-enter-active {
+      transition: opacity 1s;
+    }
+
+    .aparecer-leave-to {
+      opacity: 0;
+    }
+
+    .aparecer-leave-active {
+      transition: opacity 1s;
+    }
+
+    /* animation */
+
+    .bote-enter-active {
+      animation: bounce-in .5s;
+    }
+
+    .bote-leave-active {
+      animation: bounce-in .5s reverse;
+    }
+
+    @keyframes bounce-in {
+      0% {
+        transform: scale(0);
+      }
+      50% {
+        transform: scale(1.5);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    @keyframes bounce-out {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.5);
+      }
+      100% {
+        transform: scale(0);
+      }
     }
   </style>
 </head>
+
 <body>
   <main>
-    <h1>Tareas</h1>
 
-    <!-- asocia propiedad computada para mostrar tareas completadas -->
-    <h3>{{ tareasCompletadas.length }} tareas completadas</h3>
+    <button @click="mostrar = !mostrar">Mostrar/Ocultar</button>
 
-    <ul>
-      <!-- :class asocia la clase css con el modelo, y cunado ese valor es true añade esa clase -->
-      <li
-        :class='{completado: tarea.completado}'
-        @click='completarTarea(tarea)'
-        v-for='tarea in tareas'>
-          {{ tarea.titulo }}
-      </li>
-    </ul>
+    <!-- transition -->
+    <!-- appear hace que la animacion se ejecute al cargar la pagina, si no se especifica la animacion pilla la que esta en el elemento -->
+    <transition name="aparecer" appear>
+      <h1 v-if="mostrar" v-text="mensajes.transicion"></h1>
+    </transition>
+
+    <!-- animation -->
+    <transition name="bote">
+      <h1 v-if="mostrar" v-text="mensajes.animacion"></h1>
+    </transition>
+
+    <!-- animate.css -->
+    <transition
+      name="animateCss"
+      enter-active-class="animated rotateInUpLeft"
+      leave-active-class="animated zoomOutUp">
+
+      <h1 v-if="mostrar" v-text="mensajes.animationCustom">Tareas</h1>
+
+    </transition>
+
+    <!-- animacion entre elementos -->
+
+    <transition name="aparecer" mode="out-in">
+      <h1 v-if="mostrar" v-text="mensajes.entreElementos" key="aparecer"></h1>
+      <h1 v-else key="ocultar">No hay mensaje</h1>
+    </transition>
+
 
     <pre>{{ $data }}</pre>
   </main>
@@ -39,4 +102,5 @@
   <script src="https://unpkg.com/vue@2.5.13/dist/vue.js" charset="utf-8"></script>
   <script src="main.js" charset="utf-8"></script>
 </body>
+
 </html>
