@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Vue Js</title>
+  
+</head>
+
+<body>
+
+  <main>
+    <mis-tareas :listado="tareas">
+      <template scope="datos">
+        <li>{{ datos.title }}</li>
+      </template>
+    </mis-tareas>
+
+    <mis-tareas :listado="tareas">
+      <!-- con scope unimos el template con el slot para poderle pasar los datos y poder definir el tag que necesitamos  -->
+        <template scope="datos">
+          <h1>{{ datos.title }}</h1>
+        </template>
+      </mis-tareas>
+
+      <mis-tareas :listado="tareas">
+          <template scope="datos">
+            <p>{{ datos.title }}</p>
+          </template>
+        </mis-tareas>
+    
+    <pre>{{ $data}}</pre>
+  </main>
+
+  <template id="mis-tareas-template">
+    <ul>
+      <!-- A traves de slot no especificamos el tag que representamos y despues poder hacerlo desde template. Title lo usaremos de union con mis tareas-->
+      <slot v-for="tarea in listado" :title="tarea.titulo"></slot>
+      <!-- <li v-for="tarea in listado">
+        {{ tarea.titulo }}
+      </li> -->
+    </ul>
+    
+  </template>
+
+  <script src="https://unpkg.com/vue@2.5.13/dist/vue.js" charset="utf-8"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="main.js" charset="utf-8"></script>
+</body>
+
+</html>
